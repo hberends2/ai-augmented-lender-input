@@ -33,6 +33,9 @@ export function PropertyInputModal({
   const [prepaymentNo, setPrepaymentNo] = useState(false)
   const [yieldMaintenanceYes, setYieldMaintenanceYes] = useState(false)
   const [yieldMaintenanceNo, setYieldMaintenanceNo] = useState(false)
+  const [isFixed, setIsFixed] = useState(false)
+  const [isFloating, setIsFloating] = useState(false)
+  const [reserveRequirement, setReserveRequirement] = useState("")
 
   const handleNext = () => {
     if (currentPage < 4) {
@@ -273,14 +276,70 @@ export function PropertyInputModal({
                   <Label htmlFor="loanPerKey">Loan Amount / Key</Label>
                   <Input id="loanPerKey" className="mt-1.5 bg-muted" value={calculateLoanPerKey()} readOnly disabled />
                 </div>
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-3 gap-4 items-end">
                   <div>
                     <Label htmlFor="interestRate">Interest Rate (%)</Label>
                     <Input id="interestRate" type="number" step="0.001" placeholder="0.000" className="mt-1.5" />
                   </div>
+                  <div className="flex flex-col items-center">
+                    <Label className="text-sm font-medium mb-2 self-start ml-4">Rate Type</Label>
+                    <div className="space-y-2 ml-4">
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="fixed"
+                          checked={isFixed}
+                          onCheckedChange={(checked) => {
+                            setIsFixed(checked as boolean)
+                            if (checked) setIsFloating(false)
+                          }}
+                        />
+                        <Label htmlFor="fixed" className="text-sm font-normal cursor-pointer">
+                          Fixed
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="floating"
+                          checked={isFloating}
+                          onCheckedChange={(checked) => {
+                            setIsFloating(checked as boolean)
+                            if (checked) setIsFixed(false)
+                          }}
+                        />
+                        <Label htmlFor="floating" className="text-sm font-normal cursor-pointer">
+                          Floating
+                        </Label>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <Label htmlFor="floatingRate">Floating Rate</Label>
+                    <div className="flex items-center gap-2 mt-1.5">
+                      <span className="text-sm text-muted-foreground">Base +</span>
+                      <div className="relative flex-1">
+                        <Input
+                          id="floatingRate"
+                          type="number"
+                          step="0.001"
+                          placeholder="0.000"
+                          className="pr-8"
+                          disabled={!isFloating}
+                        />
+                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                          %
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-4">
                   <div>
                     <Label htmlFor="term">Term</Label>
                     <Input id="term" type="number" placeholder="Enter term" className="mt-1.5" />
+                  </div>
+                  <div>
+                    <Label htmlFor="interestOnly">Interest Only</Label>
+                    <Input id="interestOnly" type="number" placeholder="0" className="mt-1.5" />
                   </div>
                   <div>
                     <Label htmlFor="amortization">Amortization</Label>
@@ -288,32 +347,38 @@ export function PropertyInputModal({
                   </div>
                 </div>
                 <div>
-                  <Label htmlFor="reserveRequirement">Reserve Requirement</Label>
-                  <Input
-                    id="reserveRequirement"
-                    placeholder="0"
-                    className="mt-1.5"
-                    onChange={(e) => {
-                      const value = e.target.value.replace(/,/g, "")
-                      if (value === "" || !isNaN(Number.parseFloat(value))) {
-                        setLoanAmount(value)
-                      }
-                    }}
-                    onBlur={(e) => {
-                      if (e.target.value) {
-                        setLoanAmount(formatCurrency(e.target.value))
-                      }
-                    }}
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="requiredDscr">Required DSCR</Label>
-                    <Input id="requiredDscr" type="number" step="0.01" placeholder="0.00" className="mt-1.5" />
+                  <div className="grid grid-cols-3 gap-4 mb-1.5">
+                    <Label htmlFor="reserveRequirement" className="text-sm font-medium">
+                      Reserve Requirement
+                    </Label>
+                    <Label htmlFor="requiredDscr" className="text-sm font-medium">
+                      Required DSCR
+                    </Label>
+                    <Label htmlFor="requiredDebtYield" className="text-sm font-medium">
+                      Required Debt Yield (%)
+                    </Label>
                   </div>
-                  <div>
-                    <Label htmlFor="requiredDebtYield">Required Debt Yield (%)</Label>
-                    <Input id="requiredDebtYield" type="number" step="0.001" placeholder="0.000" className="mt-1.5" />
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="relative">
+                      <Input
+                        id="reserveRequirement"
+                        type="number"
+                        step="0.01"
+                        placeholder="0.00"
+                        value={reserveRequirement}
+                        onChange={(e) => setReserveRequirement(e.target.value)}
+                        className="pr-8"
+                      />
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                        %
+                      </span>
+                    </div>
+                    <div>
+                      <Input id="requiredDscr" type="number" step="0.01" placeholder="0.00" />
+                    </div>
+                    <div>
+                      <Input id="requiredDebtYield" type="number" step="0.001" placeholder="0.000" />
+                    </div>
                   </div>
                 </div>
                 <div>
