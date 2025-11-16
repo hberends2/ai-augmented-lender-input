@@ -224,6 +224,14 @@ export function PropertyInputModal({
                   </div>
                 </div>
                 <div>
+                  <Label htmlFor="loanOriginator">Loan Originator</Label>
+                  <Input id="loanOriginator" placeholder="Enter loan originator" className="mt-1.5" />
+                </div>
+                <div>
+                  <Label htmlFor="loanServicer">Loan Servicer</Label>
+                  <Input id="loanServicer" placeholder="Enter loan servicer" className="mt-1.5" />
+                </div>
+                <div>
                   <Label htmlFor="annualFfeReserves">Annual FF&E Reserves</Label>
                   <Input id="annualFfeReserves" type="number" step="0.01" placeholder="$0.00" className="mt-1.5" />
                 </div>
