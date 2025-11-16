@@ -182,29 +182,35 @@ export function PropertyInputModal({
               <h3 className="text-xl font-semibold">2. Loan Details</h3>
               <div className="space-y-4">
                 <div>
-                  <Label htmlFor="loanNumber">Loan Number</Label>
-                  <Input id="loanNumber" placeholder="Enter loan number" className="mt-1.5" />
+                  <Label htmlFor="loanNumber">
+                    Loan Number<span className="text-red-500">*</span>
+                  </Label>
+                  <Input id="loanNumber" placeholder="Enter loan number" className="mt-1.5" required />
                 </div>
                 <div>
-                  <Label htmlFor="borrower">Borrower</Label>
-                  <Input id="borrower" placeholder="Enter borrower" className="mt-1.5" />
+                  <Label htmlFor="borrower">
+                    Borrower<span className="text-red-500">*</span>
+                  </Label>
+                  <Input id="borrower" placeholder="Enter borrower" className="mt-1.5" required />
                 </div>
                 <div>
-                  <Label htmlFor="borrowerAddress">Borrower Contact Information</Label>
-                  <Input id="borrowerAddress" placeholder="Address" className="mt-1.5" />
+                  <Label htmlFor="borrowerAddress">
+                    Borrower Contact Information<span className="text-red-500">*</span>
+                  </Label>
+                  <Input id="borrowerAddress" placeholder="Address" className="mt-1.5" required />
                 </div>
                 <div className="grid grid-cols-3 gap-4">
                   <div>
                     <Label htmlFor="borrowerCity" className="sr-only">
                       City
                     </Label>
-                    <Input id="borrowerCity" placeholder="City" className="mt-1.5" />
+                    <Input id="borrowerCity" placeholder="City" className="mt-1.5" required />
                   </div>
                   <div>
                     <Label htmlFor="borrowerState" className="sr-only">
                       State
                     </Label>
-                    <Select>
+                    <Select required>
                       <SelectTrigger id="borrowerState" className="mt-1.5">
                         <SelectValue placeholder="ST" />
                       </SelectTrigger>
@@ -220,7 +226,7 @@ export function PropertyInputModal({
                     <Label htmlFor="borrowerZip" className="sr-only">
                       Zip
                     </Label>
-                    <Input id="borrowerZip" type="number" placeholder="Zip" className="mt-1.5" />
+                    <Input id="borrowerZip" type="number" placeholder="Zip" className="mt-1.5" required />
                   </div>
                 </div>
                 <div>
@@ -261,11 +267,14 @@ export function PropertyInputModal({
               <h3 className="text-xl font-semibold">3. Loan Terms</h3>
               <div className="space-y-4">
                 <div>
-                  <Label htmlFor="loanAmount">Loan Amount</Label>
+                  <Label htmlFor="loanAmount">
+                    Loan Amount<span className="text-red-500">*</span>
+                  </Label>
                   <Input
                     id="loanAmount"
                     placeholder="0"
                     className="mt-1.5"
+                    required
                     value={loanAmount}
                     onChange={(e) => {
                       const value = e.target.value.replace(/,/g, "")
@@ -286,11 +295,15 @@ export function PropertyInputModal({
                 </div>
                 <div className="grid grid-cols-3 gap-4 items-end">
                   <div>
-                    <Label htmlFor="interestRate">Interest Rate (%)</Label>
-                    <Input id="interestRate" type="number" step="0.001" placeholder="0.000" className="mt-1.5" />
+                    <Label htmlFor="interestRate">
+                      Interest Rate (%)<span className="text-red-500">*</span>
+                    </Label>
+                    <Input id="interestRate" type="number" step="0.001" placeholder="0.000" className="mt-1.5" required />
                   </div>
                   <div className="flex flex-col items-center">
-                    <Label className="text-sm font-medium mb-2 self-start ml-4">Rate Type</Label>
+                    <Label className="text-sm font-medium mb-2 self-start ml-4">
+                      Rate Type<span className="text-red-500">*</span>
+                    </Label>
                     <div className="space-y-2 ml-4">
                       <div className="flex items-center space-x-2">
                         <Checkbox
@@ -342,8 +355,10 @@ export function PropertyInputModal({
                 </div>
                 <div className="grid grid-cols-3 gap-4">
                   <div>
-                    <Label htmlFor="term">Term</Label>
-                    <Input id="term" type="number" placeholder="Enter term" className="mt-1.5" />
+                    <Label htmlFor="term">
+                      Term<span className="text-red-500">*</span>
+                    </Label>
+                    <Input id="term" type="number" placeholder="Enter term" className="mt-1.5" required />
                   </div>
                   <div>
                     <Label htmlFor="interestOnly">Interest Only</Label>
@@ -401,9 +416,11 @@ export function PropertyInputModal({
                     className="mt-1.5 min-h-[100px]"
                   />
                 </div>
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-[1fr_1.2fr_1fr] gap-4">
                   <div>
-                    <Label className="text-sm font-medium">Recourse</Label>
+                    <Label className="text-sm font-medium">
+                      Recourse<span className="text-red-500">*</span>
+                    </Label>
                     <div className="flex items-center space-x-4 mt-2">
                       <div className="flex items-center space-x-2">
                         <Checkbox
@@ -434,7 +451,9 @@ export function PropertyInputModal({
                     </div>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium">Prepayment Allowed</Label>
+                    <Label className="text-sm font-medium">
+                      Prepayment Allowed<span className="text-red-500">*</span>
+                    </Label>
                     <div className="flex items-center space-x-4 mt-2">
                       <div className="flex items-center space-x-2">
                         <Checkbox
@@ -465,7 +484,9 @@ export function PropertyInputModal({
                     </div>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium">Yield Maintenance</Label>
+                    <Label className="text-sm font-medium">
+                      Yield Maintenance<span className="text-red-500">*</span>
+                    </Label>
                     <div className="flex items-center space-x-4 mt-2">
                       <div className="flex items-center space-x-2">
                         <Checkbox
